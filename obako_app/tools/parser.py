@@ -1,5 +1,5 @@
 import pandas as pd
-
+import re
 
 def csv_to_dic(path):
     df = pd.read_csv(path, index_col=0)
@@ -14,9 +14,11 @@ class Parser(object):
     def __init__(self, dic):
         self.dic = dic
 
-    def parse(self, s_text):
-        parsed = self.dic[s_text]
-        return parsed
+    def parse(self, sentence):
+        for standard, akita in self.dic.items():
+            sentence = re.sub(standard, akita, sentence)
+
+        return sentence
 
 
 def translate(text):
@@ -30,7 +32,7 @@ def translate(text):
 
 
 if __name__ == '__main__':
-    print(translate('娘'))
+    print(translate('娘と肉鍋料理食べに行ったよ'))
 
 
 
