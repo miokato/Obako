@@ -5,6 +5,7 @@ import json
 
 from django.shortcuts import render
 from django.http import HttpResponse
+from .tools.parser import translate
 
 REPLY_ENDPOINT = 'https://api.line.me/v2/bot/message/reply'
 
@@ -28,12 +29,13 @@ def callback(request):
 
 
 def reply_text(reply_token, text):
+    akita = translate(text)
     payload = {
           "replyToken": reply_token,
           "messages": [
                 {
-                    "type":"text",
-                    "text": 'へばな'
+                    "type": "text",
+                    "text": akita
                 }
             ]
     }
