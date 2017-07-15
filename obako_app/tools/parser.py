@@ -33,19 +33,19 @@ class Morning(Mode):
         self.dic = dic.query("state=='morning'")
 
     def to_morning(self):
-        controller.state = controller.morning
+        self.controller.state = self.controller.morning
 
     def to_lunch(self):
-        controller.state = controller.lunch
+        self.controller.state = self.controller.runch
 
     def to_evening(self):
-        controller.state = controller.evening
+        self.controller.state = self.controller.evening
 
     def to_afterfive(self):
-        controller.state = controller.afterfive
+        self.controller.state = self.controller.afterfive
 
     def to_midnight(self):
-        controller.state = controller.midnight
+        self.controller.state = self.controller.midnight
 
 
 class Lunch(Mode):
@@ -55,19 +55,19 @@ class Lunch(Mode):
         self.dic = dic.query("state=='morning'")
 
     def to_morning(self):
-        controller.state = controller.morning
+        self.controller.state = self.controller.morning
 
     def to_lunch(self):
-        controller.state = controller.lunch
+        self.controller.state = self.controller.runch
 
     def to_evening(self):
-        controller.state = controller.evening
+        self.controller.state = self.controller.evening
 
     def to_afterfive(self):
-        controller.state = controller.afterfive
+        self.controller.state = self.controller.afterfive
 
     def to_midnight(self):
-        controller.state = controller.midnight
+        self.controller.state = self.controller.midnight
 
 
 class Evening(Mode):
@@ -77,19 +77,19 @@ class Evening(Mode):
         self.dic = dic.query("state=='evening'")
 
     def to_morning(self):
-        controller.state = controller.morning
+        self.controller.state = self.controller.morning
 
     def to_lunch(self):
-        controller.state = controller.lunch
+        self.controller.state = self.controller.runch
 
     def to_evening(self):
-        controller.state = controller.evening
+        self.controller.state = self.controller.evening
 
     def to_afterfive(self):
-        controller.state = controller.afterfive
+        self.controller.state = self.controller.afterfive
 
     def to_midnight(self):
-        controller.state = controller.midnight
+        self.controller.state = self.controller.midnight
 
 
 class AfterFive(Mode):
@@ -99,19 +99,19 @@ class AfterFive(Mode):
         self.dic = dic.query("state=='friday'")
 
     def to_morning(self):
-        controller.state = controller.morning
+        self.controller.state = self.controller.morning
 
     def to_lunch(self):
-        controller.state = controller.lunch
+        self.controller.state = self.controller.runch
 
     def to_evening(self):
-        controller.state = controller.evening
+        self.controller.state = self.controller.evening
 
     def to_afterfive(self):
-        controller.state = controller.afterfive
+        self.controller.state = self.controller.afterfive
 
     def to_midnight(self):
-        controller.state = controller.midnight
+        self.controller.state = self.controller.midnight
 
 
 class MidNight(Mode):
@@ -121,19 +121,19 @@ class MidNight(Mode):
         self.dic = dic
 
     def to_morning(self):
-        controller.state = controller.morning
+        self.controller.state = self.controller.morning
 
     def to_lunch(self):
-        controller.state = controller.lunch
+        self.controller.state = self.controller.runch
 
     def to_evening(self):
-        controller.state = controller.evening
+        self.controller.state = self.controller.evening
 
     def to_afterfive(self):
-        controller.state = controller.afterfive
+        self.controller.state = self.controller.afterfive
 
     def to_midnight(self):
-        controller.state = controller.midnight
+        self.controller.state = self.controller.midnight
 
 
 class TalkController(object):
@@ -167,9 +167,9 @@ class TalkController(object):
 
 
 class Concierge(object):
-    def __init__(self, controller):
+    def __init__(self):
         # self.parser = Parser()
-        self.controller = controller
+        self.controller = TalkController()
 
     def talk(self):
         # とりあえず現状は時間帯でランダムな答えを返す。今後はクエリをパースして、適当な返答を返す。
@@ -199,8 +199,7 @@ class Parser(object):
 
 
 if __name__ == '__main__':
-    controller = TalkController()
-    concierge = Concierge(controller)
+    concierge = Concierge()
     print(concierge.talk())
 
     # print(translate('不細工な娘と肉鍋料理食べに行ったよ'))
