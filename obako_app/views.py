@@ -5,7 +5,7 @@ import json
 
 from django.shortcuts import render
 from django.http import HttpResponse
-from .tools.parser import Concierge
+from .tools.parser import Concierge, TalkController
 
 REPLY_ENDPOINT = 'https://api.line.me/v2/bot/message/reply'
 
@@ -33,7 +33,8 @@ def callback(request):
 
 
 def reply_text(reply_token, text):
-    concierge = Concierge()
+    controller = TalkController()
+    concierge = Concierge(controller)
     res = concierge.talk()
 
     payload = {

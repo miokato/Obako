@@ -167,9 +167,9 @@ class TalkController(object):
 
 
 class Concierge(object):
-    def __init__(self):
+    def __init__(self, controller):
         # self.parser = Parser()
-        self.controller = TalkController()
+        self.controller = controller
 
     def talk(self):
         # とりあえず現状は時間帯でランダムな答えを返す。今後はクエリをパースして、適当な返答を返す。
@@ -200,10 +200,7 @@ class Parser(object):
 
 if __name__ == '__main__':
     controller = TalkController()
-    controller.change_state()
-    print(controller.talk())
-
-    concierge = Concierge()
+    concierge = Concierge(controller)
     print(concierge.talk())
 
     # print(translate('不細工な娘と肉鍋料理食べに行ったよ'))
