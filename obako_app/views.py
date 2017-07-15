@@ -15,6 +15,10 @@ HEADER = {
 }
 
 
+def index(request):
+    return HttpResponse('Top page')
+
+
 def callback(request):
     reply = ""
     request_json = json.loads(request.body.decode('utf-8')) # requestの情報をdict形式で取得
