@@ -33,7 +33,7 @@ def reply_text(reply_token, text):
           "messages": [
                 {
                     "type":"text",
-                    "text": text
+                    "text": 'へばな'
                 }
             ]
     }
