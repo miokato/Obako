@@ -1,0 +1,1 @@
+web: gunicorn Obako.wsgi obako_app:app --log-file -

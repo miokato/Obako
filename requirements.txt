@@ -1,0 +1,5 @@
+Django
+django-toolbelt
+gunicorn
+psycopg2
+requests
