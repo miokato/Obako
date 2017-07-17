@@ -21,7 +21,12 @@ def time_zone():
 class Mode(object):
 
     def talk(self):
-        sents = list(self.dic['akita'])
+        sents = list()
+        for i, j in zip(self.dic['akita'], self.dic['standard']):
+            s = i + ' (' + j + ')'
+            sents.append(s)
+
+        #sents = list(self.dic['akita'])
         sent = sents[randint(0, len(self.dic)-1)]
         return sent
 
@@ -177,6 +182,7 @@ class Concierge(object):
         res = self.controller.talk()
 
         return res
+
 
 def csv_to_dic(path):
     df = pd.read_csv(path, index_col=0)
