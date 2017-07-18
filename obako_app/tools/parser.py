@@ -20,7 +20,7 @@ def time_zone():
 
 class Mode(object):
 
-    def talk(self):
+    def talk(self, prediction):
         sents = list()
         for i, j in zip(self.dic['akita'], self.dic['standard']):
             s = i + ' (' + j + ')'
@@ -166,31 +166,9 @@ class TalkController(object):
         elif zone == 'midnight':
             self.state.to_midnight()
 
-    def talk(self):
-        sent = self.state.talk()
+    def talk(self, prediction):
+        sent = self.state.talk(prediction)
         return sent
-
-
-class Concierge(object):
-    def __init__(self):
-        # self.parser = Parser()
-        self.controller = TalkController()
-
-    def talk(self):
-        # とりあえず現状は時間帯でランダムな答えを返す。今後はクエリをパースして、適当な返答を返す。
-        self.controller.change_state()
-        res = self.controller.talk()
-
-        return res
-
-
-def csv_to_dic(path):
-    df = pd.read_csv(path, index_col=0)
-    dic = {}
-    for k, a, s in zip(df['state'], df['akita'], df['standard']):
-        dic[k] = (a, s)
-
-    return dic
 
 
 class Parser(object):
@@ -212,6 +190,33 @@ class Parser(object):
                     results[k] = v
 
         return results
+
+
+class Predictor(object):
+    def __init__(self):
+        pass
+
+    def predict(self, mes):
+        return mes
+
+
+class Concierge(object):
+    def __init__(self):
+        self.parser = Parser()
+        self.predictor = Predictor()
+        self.controller = TalkController()
+
+    def talk(self, raw_message):
+        # メッセージを解析、メッセージオブジェクトを返す
+        parsed_mes = self.parser.parse(raw_message)
+        # メッセージの内容から返信オブジェクトを作成し返す
+        prediction = self.predictor.predict(parsed_mes)
+        # 時間帯によりコントローラーの状態を変更
+        self.controller.change_state()
+        # 返信オブジェクトをコントローラに渡し、返信内容を決定
+        res = self.controller.talk(prediction)
+        # 返信文を返す
+        return res
 
 
 if __name__ == '__main__':
