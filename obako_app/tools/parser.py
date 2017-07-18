@@ -194,21 +194,32 @@ def csv_to_dic(path):
 
 
 class Parser(object):
-    def __init__(self, dic):
-        self.dic = dic
+    def __init__(self):
+        path = 'obako_app/data/word.csv'
+        df = pd.read_csv(path, index_col=0)
+        self.dic = df.set_index(df['word']).to_dict(orient='index')
 
-    def parse(self, sentence):
-        for standard, akita in self.dic.items():
-            sentence = re.sub(standard, akita, sentence)
+        pattern = r'。|？'
+        self.patter = re.compile(pattern)
 
-        return sentence
+    def parse(self, message):
+        results = dict()
+        sents = self.patter.split(message)
+        sents = [s for s in sents if len(s) > 1]
+        for sent in sents:
+            for k, v in self.dic.items():
+                if k in sent:
+                    results[k] = v
+
+        return results
 
 
 if __name__ == '__main__':
-    concierge = Concierge()
-    print(concierge.talk())
+    mes = 'おはよう。今日もいい天気だね'
+    parser = Parser()
+    sents = parser.parse(mes)
+    print(sents)
 
-    # print(translate('不細工な娘と肉鍋料理食べに行ったよ'))
 
 
 
